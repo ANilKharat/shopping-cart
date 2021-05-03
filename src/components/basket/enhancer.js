@@ -18,15 +18,18 @@ let enhancer = (Component) => (props) => {
     let cheeseSaving = 0;
     let cheeseFree = false
 
+    let cheese_count = 0;
+    let free_cheese = 0;
+
     /************************************Scenario first**************************************/
     const soup = productDetails?.find(product => product.product_name.toUpperCase() === 'SOUP')
     const bread = productDetails?.find(product => product.product_name.toUpperCase() === 'BREAD')
     const butter = productDetails?.find(product => product.product_name.toUpperCase() === 'BUTTER')
-    if (soup && bread && !butter) {
-        breadSaving = 0.55
+    if (soup && bread?.product_count >= 2 && !butter) {
+        breadSaving = 1.10
     }
-    else if (soup && bread && butter) {
-        breadSaving = 0.55
+    else if (soup && bread?.product_count >= 2 && butter) {
+        breadSaving = 1.10
         butterSaving = 0.40
     }
     else if (soup && butter && !bread) {
@@ -37,29 +40,22 @@ let enhancer = (Component) => (props) => {
     /*********************************Second scenario**************************/
     const cheese = productDetails?.find(product => product.product_name.toUpperCase() === 'CHEESE')
 
-    if (cheese?.product_count === 1 || cheese?.product_count === 2 || cheese?.product_count === 3) {
+    if (cheese?.product_count === 3) {
         cheeseFree = true
         cheeseSaving = 0.90
+        cheese_count = 2
+        free_cheese = 1
     }
     else if (cheese?.product_count === 4) {
         cheeseFree = true
         cheeseSaving = 1.80
-    }
-    /**************************************************************************/
-
-    /**************************************************************************/
-    let cheese_count;
-    let free_cheese;
-    if (cheese?.product_count === 2) {
-        cheese_count = 1
-        free_cheese = 1
-    }
-    else if (cheese?.product_count === 3) {
         cheese_count = 2
-        free_cheese = 1
+        free_cheese = 2
     }
-    else if (cheese?.product_count === 4) {
-        cheese_count = 2
+    else if (cheese?.product_count >= 4) {
+        cheeseFree = true
+        cheeseSaving = 1.80
+        cheese_count = cheese?.product_count - 2
         free_cheese = 2
     }
     /**************************************************************************/

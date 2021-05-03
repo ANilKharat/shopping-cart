@@ -40,37 +40,17 @@ function Basket({
                       <span>{item.product_count}</span>
                       <button className='minus-button'
                         id="minus_button"
-                        disabled={item.product_name.toUpperCase() === "CHEESE" ? item.product_count === 2 : item.product_count === 1}
+                        disabled={item.product_count === 1}
                         onClick={() => decrementCount(item.id, item.product_name, item.price, item.product_count)}
                       >-</button>
                     </div>
                   </div>
                   <div className="item-total-price">
-                    Item price £
-            {item.price.toFixed(2)} *
-              {
-                      (item.product_name.toUpperCase() === "CHEESE" && item.product_count === 2) ||
-                        (item.product_name.toUpperCase() === "CHEESE" && item.product_count === 3) ||
-                        (item.product_name.toUpperCase() === "CHEESE" && item.product_count === 4) ?
-                        cheese_count : item.product_count
-                    }
-              = £
-            {
-                      (item.product_name.toUpperCase() === "CHEESE" && item.product_count === 2) ||
-                        (item.product_name.toUpperCase() === "CHEESE" && item.product_count === 3) ||
-                        (item.product_name.toUpperCase() === "CHEESE" && item.product_count === 4) ?
-                        (item.price * cheese_count).toFixed(2) : (item.price * item.product_count).toFixed(2)
-                    }
+                    Item price £ {item.price.toFixed(2)} *{item.product_count} = £ {(item.price * item.product_count).toFixed(2)}
                   </div>
                   <hr className='bottom-line' />
                   <div className="item-cost">
-                    Item cost £
-              {
-                      (item.product_name.toUpperCase() === "CHEESE" && item.product_count === 2) ||
-                        (item.product_name.toUpperCase() === "CHEESE" && item.product_count === 3) ||
-                        (item.product_name.toUpperCase() === "CHEESE" && item.product_count === 4) ?
-                        (item.price * cheese_count).toFixed(2) : (item.price * item.product_count).toFixed(2)
-                    }
+                    Item cost £ {(item.price * item.product_count).toFixed(2)}
                   </div>
                   <hr className='bottom-line' />
 

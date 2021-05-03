@@ -32,7 +32,7 @@ let enhancer = (Component) => (props) => {
             id: id,
             product_name: name,
             price: price,
-            product_count: name.toUpperCase() === "CHEESE" ? 2 : 1,
+            product_count: 1,
         }
         dispatch(selectProduct(selectedProduct))
         setcount(count + 1)
