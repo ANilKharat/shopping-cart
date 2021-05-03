@@ -1,8 +1,17 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import React from 'react';
+import { mount } from 'enzyme';
+import App from './App'
+import { Provider } from 'react-redux'
+import store from '../src/redux/store/store'
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+
+describe('Products page test case', () => {
+  it("Snapshot test case", () => {
+      const component = mount(
+          <Provider store={store}>
+              <App />
+          </Provider>
+      )
+      expect(component).toMatchSnapshot()
+  })
+})
