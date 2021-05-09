@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { selectProduct } from '../../redux/action/actions'
+import { selectProduct, removeProduct } from '../../redux/action/actions'
 
 let enhancer = (Component) => (props) => {
     // Variable declaration
@@ -91,6 +91,12 @@ let enhancer = (Component) => (props) => {
         setCount(count - 1)
     }
 
+    // for remove product from basket
+    const removeProductFromCart = (id) =>{
+        dispatch(removeProduct(id))
+        setCount(count - 1)
+    }
+
     return (
         <Component
             {...props}
@@ -108,7 +114,8 @@ let enhancer = (Component) => (props) => {
                 decrementCount,
                 totalSaving,
                 totalAmount,
-                product
+                product,
+                removeProductFromCart
             }}
         />
     );

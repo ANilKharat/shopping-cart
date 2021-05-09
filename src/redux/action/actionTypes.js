@@ -1,1 +1,2 @@
 export const SELECT_PRODUCT ='SELECT_PRODUCT';
+export const REMOVE_PRODUCT = 'REMOVE_PRODUCT';

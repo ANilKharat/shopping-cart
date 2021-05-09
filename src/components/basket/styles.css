@@ -73,3 +73,11 @@
   color: red;
   font-weight: 500;
 }
+.cross-icon {
+  height: 20px;
+  width: 20px;
+  margin-left: 14px;
+  border-radius: 20px;
+  padding: 7px;
+  cursor: pointer;
+}

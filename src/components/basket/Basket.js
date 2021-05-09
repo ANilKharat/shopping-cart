@@ -1,6 +1,7 @@
 import React from "react";
 import "./styles.css";
 import basketEnhancer from './enhancer'
+import crossIcon from '../../assets/crossIcon.svg'
 
 function Basket({
   count,
@@ -9,13 +10,13 @@ function Basket({
   butterSaving,
   cheeseSaving,
   cheeseFree,
-  cheese_count,
   free_cheese,
   subTotal,
   incrementCount,
   decrementCount,
   totalSaving,
-  totalAmount
+  totalAmount,
+  removeProductFromCart
 }) {
 
   return (
@@ -24,7 +25,7 @@ function Basket({
       <span style={{ display: 'none' }}>{count}</span>
       <hr />
       {
-        productDetails.length > 0 ?
+        productDetails?.length > 0 ?
           <div>
             {
               productDetails.map((item) =>
@@ -43,6 +44,7 @@ function Basket({
                         disabled={item.product_count === 1}
                         onClick={() => decrementCount(item.id, item.product_name, item.price, item.product_count)}
                       >-</button>
+                      <img src={crossIcon} onClick={()=> removeProductFromCart(item.id)} className='cross-icon' alt='cross-icon' />
                     </div>
                   </div>
                   <div className="item-total-price">
