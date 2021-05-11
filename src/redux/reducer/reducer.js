@@ -7,32 +7,36 @@ const initialState = {
 const productReducer = (state = initialState, action) => {
     switch (action.type) {
         case SELECT_PRODUCT:
-            if (state?.selectedProduct?.length === 0) {
-                state?.selectedProduct.push(action.payload)
+
+            let products = []
+            products = state.selectedProduct
+            if (products.length === 0) {
+                products.push(action.payload)
             }
             else {
-                var existingIds = state?.selectedProduct?.map((obj) => obj.id);
+                var existingIds = products.map((obj) => obj.id);
 
                 if (!existingIds?.includes(action.payload.id)) {
-                    state?.selectedProduct?.push(action.payload);
+                    products.push(action.payload);
                 } else {
-                    state?.selectedProduct?.forEach((element, index) => {
+                    products.forEach((element, index) => {
                         if (element.id === action.payload.id) {
-                            state.selectedProduct[index] = action.payload;
+                            products[index] = action.payload;
                         }
                     })
                 }
             }
             return {
-                ...state
+                ...state,
+                selectedProduct: products
             }
 
         case REMOVE_PRODUCT:
-            let itemToRemove =  state.selectedProduct.filter((item) => { return  item.id !== action.payload })
-            state.selectedProduct = itemToRemove
-        return{
-            ...state
-        }
+            let itemToRemove = state.selectedProduct.filter((item) => { return item.id !== action.payload })
+            return {
+                ...state,
+                selectedProduct: itemToRemove
+            }
         default: return state
     }
 }
