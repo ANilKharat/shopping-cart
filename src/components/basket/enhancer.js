@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { selectProduct, removeProduct } from '../../redux/action/actions'
+import store  from '../../redux/store/store'
 
 let enhancer = (Component) => (props) => {
     // Variable declaration
     const [count, setCount] = useState(1)
     const productDetails = useSelector(state => state.selectedProduct)
-    const dispatch = useDispatch()
 
     let totalSaving = 0;
     let subTotal = 0;
@@ -18,7 +18,6 @@ let enhancer = (Component) => (props) => {
     let cheeseSaving = 0;
     let cheeseFree = false
 
-    let cheese_count = 0;
     let free_cheese = 0;
 
     /************************************Scenario first**************************************/
@@ -43,19 +42,16 @@ let enhancer = (Component) => (props) => {
     if (cheese?.product_count === 3) {
         cheeseFree = true
         cheeseSaving = 0.90
-        cheese_count = 2
         free_cheese = 1
     }
     else if (cheese?.product_count === 4) {
         cheeseFree = true
         cheeseSaving = 1.80
-        cheese_count = 2
         free_cheese = 2
     }
     else if (cheese?.product_count >= 4) {
         cheeseFree = true
         cheeseSaving = 1.80
-        cheese_count = cheese?.product_count - 2
         free_cheese = 2
     }
     /**************************************************************************/
@@ -67,8 +63,9 @@ let enhancer = (Component) => (props) => {
 
     totalSaving = breadSaving + butterSaving + cheeseSaving;
     totalAmount = subTotal - totalSaving;
-    // Billing end
+    
 
+    // for increment product count
     const incrementCount = (id, name, price, product_count) => {
         let selectedProduct = {
             id: id,
@@ -76,7 +73,7 @@ let enhancer = (Component) => (props) => {
             price: price,
             product_count: product_count + 1
         }
-        dispatch(selectProduct(selectedProduct))
+        store.dispatch(selectProduct(selectedProduct))
         setCount(count + 1)
     }
     // For decrement product count
@@ -87,14 +84,13 @@ let enhancer = (Component) => (props) => {
             price: price,
             product_count: product_count - 1
         }
-        dispatch(selectProduct(selectedProduct))
+        store.dispatch(selectProduct(selectedProduct))
         setCount(count - 1)
     }
 
     // for remove product from basket
     const removeProductFromCart = (id) =>{
-        dispatch(removeProduct(id))
-        setCount(count - 1)
+        store.dispatch(removeProduct(id))
     }
 
     return (
@@ -107,14 +103,12 @@ let enhancer = (Component) => (props) => {
                 butterSaving,
                 cheeseSaving,
                 cheeseFree,
-                cheese_count,
                 free_cheese,
                 subTotal,
                 incrementCount,
                 decrementCount,
                 totalSaving,
                 totalAmount,
-                product,
                 removeProductFromCart
             }}
         />

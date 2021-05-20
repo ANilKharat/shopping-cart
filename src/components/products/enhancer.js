@@ -1,21 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { selectProduct } from '../../redux/action/actions';
 
 
 
 let enhancer = (Component) => (props) => {
-    const productsData = [
-        { id: 1, product_name: "Bread", price: 1.10 },
-        { id: 2, product_name: "Milk", price: 0.50 },
-        { id: 3, product_name: "Cheese", price: 0.90 },
-        { id: 4, product_name: "Soup", price: 0.60 },
-        { id: 5, product_name: "Butter", price: 1.20 }
-    ];
-
     // varibales
     const [count, setcount] = useState(0)
+    const [productsData, setProductsData] = useState([])
     const productDetails = useSelector(state => state.selectedProduct)
+
+    useEffect(() => {
+        fetch('https://run.mocky.io/v3/5c6d0905-3f5c-42c8-a70f-177970992309')
+        .then(res=> res.json())
+        .then((result) => setProductsData(result))
+    }, [])
 
     let productMatching = [];
     productsData.forEach(element => {

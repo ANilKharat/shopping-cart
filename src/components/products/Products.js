@@ -23,9 +23,9 @@ function Products({
                 <span>£ {item.price.toFixed(2)}</span>
                 <button
                   id='selectedProduct'
-                  disabled={productMatching.find(p => p.id === item.id)}
+                  disabled={productMatching.find(product => product.id === item.id)}
                   onClick={() => setProductToStore(item.id, item.product_name, item.price, item.selected)}
-                  style={productMatching.find(p => p.id === item.id) ? { backgroundColor: '#8080809e' } : {}}
+                  style={productMatching.find(product => product.id === item.id) ? { backgroundColor: '#8080809e' } : {}}
                 >
                   Add
               </button>
