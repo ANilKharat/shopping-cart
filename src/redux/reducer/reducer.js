@@ -7,25 +7,9 @@ const initialState = {
 const productReducer = (state = initialState, action) => {
     switch (action.type) {
         case SELECT_PRODUCT:
-
             let products = []
             products = state.selectedProduct
-            if (products.length === 0) {
-                products.push(action.payload)
-            }
-            else {
-                var existingIds = products.map((obj) => obj.id);
-
-                if (!existingIds?.includes(action.payload.id)) {
-                    products.push(action.payload);
-                } else {
-                    products.forEach((element, index) => {
-                        if (element.id === action.payload.id) {
-                            products[index] = action.payload;
-                        }
-                    })
-                }
-            }
+            products.push(action.payload)
             return {
                 ...state,
                 selectedProduct: products
