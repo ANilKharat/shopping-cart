@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from 'react-redux'
-import { selectProduct, removeProduct } from '../../redux/action/actions'
+import { removeProduct, incrementProductCount,decrementProductCount } from '../../redux/action/actions'
 import store  from '../../redux/store/store'
 
 let enhancer = (Component) => (props) => {
@@ -66,25 +66,13 @@ let enhancer = (Component) => (props) => {
     
 
     // for increment product count
-    const incrementCount = (id, name, price, product_count) => {
-        let selectedProduct = {
-            id: id,
-            product_name: name,
-            price: price,
-            product_count: product_count + 1
-        }
-        store.dispatch(selectProduct(selectedProduct))
+    const incrementCount = (id) => {
+        store.dispatch(incrementProductCount(id))
         setCount(count + 1)
     }
     // For decrement product count
-    const decrementCount = (id, name, price, product_count) => {
-        let selectedProduct = {
-            id: id,
-            product_name: name,
-            price: price,
-            product_count: product_count - 1
-        }
-        store.dispatch(selectProduct(selectedProduct))
+    const decrementCount = (id) => {
+        store.dispatch(decrementProductCount(id))
         setCount(count - 1)
     }
 
